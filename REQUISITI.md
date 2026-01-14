@@ -123,7 +123,7 @@ Perché è meglio? Perché ora sappiamo **quanto spesso**, **dove finisce il dat
 
 ### Requisiti funzionali
 - **RF-DB-01 — Anagrafiche**: Il database deve gestire le entità: `Apiario`, `Arnia`, `Sensore`, `Notifica`, `Rilevazione`, `Utente`.  
-- **RF-DB-02 — Tipo utente**: Devono esistere diversi tipi di utente: `Admin`, `Apicoltore`. L' `Admin` ha il compito di gestire il software, lui a differenza dell'apicoltore può gestire gli utenti che hanno fatto l'accesso all'interno del software, esso può leggere le informazioni nella tabella delle entità: `Apiari`, `Arnie`, `Sensori`, `Rilevazioni` e `Notifiche`. Invece può scrivere all'interno delle entità: `Apiari`, `Arnie` e `Sensori`. L'`Apicoltore` può accedere al software e 
+- **RF-DB-02 — Tipo utente**: Devono esistere diversi tipi di utente: `Admin`, `Apicoltore`. L' `Admin` ha il compito di gestire il software, lui a differenza dell'apicoltore può gestire gli utenti che hanno fatto l'accesso all'interno del software, esso può leggere le informazioni nella tabella delle entità: `Apiari`, `Arnie`, `Sensori`, `Rilevazioni` e `Notifiche`. Invece può scrivere all'interno delle entità: `Apiari`, `Arnie` e `Sensori` ma con l'eccezione che sui sensori può solo modificare le soglie. L'`Apicoltore` può accedere al software e visualizzare i dati che servono per controllare le arnie, lui può leggere leggere le informazioni nella tabella delle entità: `Apiari`, `Arnie`, `Sensori`, `Rilevazioni` e `Notifiche`. Invece esso può scrivere all'interno delle entità: `Apiari`, `Arnie` e `Sensori` ma con l'eccezione che sui sensori può solo modificare le soglie. 
 - **RF-DB-03 — Dati del database**: Il database deve ricevere i dati:
 -- Rumore (dB)
 -- Peso (kg)
