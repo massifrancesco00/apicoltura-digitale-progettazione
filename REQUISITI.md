@@ -201,33 +201,16 @@ Perché è meglio? Perché ora sappiamo **quanto spesso**, **dove finisce il dat
 
 # Requisiti Non Funzionali
 
-- **RNF-SW-01 — TM, Persistenza Dati**: Il sensore salva i dati nella memoria locale dell'ESP32 in caso di assenza di connessione.
-- **RNF-SW-02 — TM, Robustezza Ambientale**: Il sensore deve resistere a polvere, propoli e sporco.
-- **RNF-SW-03 — TM, Facilità di Installazione**: Il sensore deve essere installato rapidamente senza disturbare le api.
-- **RNF-SW-04 — PS, Peso max**: L'arnia pesa al massimo 70kg. 
+- **RNF-SW-01 — TM, Persistenza Dati**: Il sensore salva i dati nella memoria locale dell'ESP32 in caso di assenza di connessione
+- **RNF-SW-04 — PS, Peso max**: L'arnia pesa al massimo 80kg. 
 - **RNF-SW-05 — PS, Notifica peso alto**: L'apicoltore deve ricevere un alert se il peso è troppo alto. 
 - **RNF-SW-06 — PS, Notifica peso basso**: L'apicoltore deve ricevere un alert se il peso è troppo basso.
 - **RNF-SW-07 — PS, Latenza**: Il sensore impiega circa 2 secondi per misurare dopo l'accensione.
 - **RNF-SW-08 — MIC, Tempestività alert**:  La notifica alert deve arrivare all'apicoltore in un tempo ragionevole.
 - **RNF-SW-09 — UM, Persistenza Dati**: Il sensore salva i dati nella memoria locale dell'ESP32 in caso di assenza di connessione.
-- **RNF-SW-10 — UM, Robustezza Ambientale**: Il sensore deve resistere a polvere, propoli e sporco. 
-- **RNF-SW-11 — UM, Facilità di Installazione**: Il sensore deve essere installato rapidamente senza disturbare le api. 
-- **RNF-SW-12 — SA, Alimentazione Continua**: L'alimentazione del sensore deve essere sempre attiva per garantire il monitoraggio continuo. 
 - **RNF-SW-13 — SA, Connettività**: Il sensore richiede connessione di rete costante per l'invio dei dati al database.
-- **RNF-SW-14 — SA, Tensione Operativa**: Il sensore opera a tensione 3.3V - 5V con corrente inferiore a 20 mA.
-- **RNF-SW-15 — SA, Resistenza Temperatura**: Il sensore deve operare correttamente in un range di temperatura che eviti il congelamento o l'evaporazione dell'acqua.
-- **RNF-SW-16 — SA, Protezione Fisica**: Il sensore e l'alimentatore devono essere protetti dal contatto con l'acqua. 
-- **RNF-SW-17 — SA, Stabilità Meccanica**: Il sistema deve resistere a eventi di ribaltamento causati da vento forte.
-- **RNF-SW-18 — TC, Alimentazione Continua**: L'alimentazione della telecamera deve essere sempre attiva per garantire la disponibilità delle immagini.
 - **RNF-SW-19 — TC, Connettività**: La telecamera richiede connessione di rete costante per l'invio dei video al database.
-- **RNF-SW-20 — TC, Tensione Operativa**: La telecamera opera a 5V con corrente richiesta di 300-500 mA tramite alimentatore esterno.
-- **RNF-SW-21 — TC, Gestione Temperatura**: La telecamera deve evitare il surriscaldamento per prevenire malfunzionamenti.
-- **RNF-SW-22 — TC, Robustezza Ambientale**: La telecamera deve resistere alla propolizzazione da parte delle api.
-- **RNF-SW-23 — TC, Protezione dal Miele**: La telecamera deve essere posizionata in modo da evitare il contatto diretto con il miele.
-📎 Media consigliati:
-- Diagramma “REST API model” (per spiegare GET/POST e flusso dati).
-- Schema a blocchi: sensori → firmware → rete → server → database.
-
+  
 ---
 
 ## Gruppo D — Architettura di rete e infrastruttura (server, sicurezza, connettività)
