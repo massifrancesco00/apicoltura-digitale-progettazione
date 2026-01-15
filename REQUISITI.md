@@ -313,6 +313,7 @@ Perché è meglio? Perché ora sappiamo **quanto spesso**, **dove finisce il dat
 ## Gruppo D — Architettura di rete e infrastruttura (server, sicurezza, connettività)
 > Obiettivo: definire come “parlano” tra loro device, server e interfaccia web (e con quali garanzie).
 
+
 ### Requisiti funzionali
 
 **RF-NET-01 — Router dedicato all’apiario:**  
@@ -369,10 +370,8 @@ Il sistema deve supportare configurazioni IP dinamiche (DHCP) e statiche per tut
 Prima di selezionare l’offerta del gestore di rete, deve essere effettuato un calcolo del consumo dati previsto dal sistema per scegliere l’offerta più adatta ed evitare costi inutili.---
 
 # 8) Mini nota: cos’è un file Markdown (.md) e perché lo usiamo
-
-**Markdown** è un modo semplice per scrivere documenti usando solo testo, ma con una sintassi leggera per titoli, elenchi, grassetti e blocchi di codice.
-
-È perfetto per GitHub e per consegne “pulite” in cui versionare modifiche e lavorare in gruppo.
+**Markdown** è un modo semplice per scrivere documenti usando solo testo, ma con una sintassi leggera per titoli, elenchi, grassetti e blocchi di codice.  
+È perfetto per GitHub e per consegne “pulite” in cui versionare modifiche e lavorare in gruppo
 
 ### Mini cheat sheet Markdown
 
@@ -407,3 +406,4 @@ Prima di selezionare l’offerta del gestore di rete, deve essere effettuato un 
 8. **Tracciabilità** (tabellina requisito → fonte → test → componente)
 
 Buon lavoro: i requisiti non sono “burocrazia”, sono l’unico modo per non litigare con il futuro voi stessi. 😄
+
