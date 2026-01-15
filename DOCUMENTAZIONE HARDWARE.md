@@ -11,3 +11,5 @@
 # [KY-038](TEST%20SENSORI/Sensore_KY-038/)  
 
 # [SHT21](TEST%20SENSORI/Sensore_SHT21/)                 
+
+gfsdgsdgfsdgfsdgfdgs
