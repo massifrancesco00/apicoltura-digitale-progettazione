@@ -58,6 +58,19 @@ static ConfigValidazioneSensore _configValidazioneTemp = {
 };
 
 // ============================================================================
+// DB WRITE (STUB) - RISERVATO AL GRUPPO DATABASE
+// ============================================================================
+static void scritturaDatoNelDB_sht21_humidity(const RisultatoValidazione* risultato) {
+  // STUB: implementazione riservata al gruppo Database
+  (void)risultato;
+}
+
+static void scritturaDatoNelDB_sht21_temperature(const RisultatoValidazione* risultato) {
+  // STUB: implementazione riservata al gruppo Database
+  (void)risultato;
+}
+
+// ============================================================================
 // SETUP - Inizializzazione hardware I2C
 // ============================================================================
 void setup_sht21() {
@@ -124,7 +137,6 @@ void init_temperature_sht21(SensorConfig* config) {
 // READ HUMIDITY - Lettura umidita
 // ============================================================================
 RisultatoValidazione read_humidity_sht21() {
-  // Verifica se sensore abilitato
   if (!_sht21_umidita_abilitato) {
     RisultatoValidazione risultato;
     risultato.valido = false;
@@ -134,7 +146,6 @@ RisultatoValidazione read_humidity_sht21() {
     return risultato;
   }
 
-  // Verifica se sensore inizializzato
   if (!_sht21_inizializzato) {
     RisultatoValidazione risultato;
     risultato.valido = false;
@@ -144,14 +155,11 @@ RisultatoValidazione read_humidity_sht21() {
     return risultato;
   }
 
-  // Lettura umidita
   float umidita = sht21.readHumidity();
 
-  // Verifica lettura valida (998 = errore sensore)
   bool sensoreReady = !isnan(umidita) && (umidita != 998);
   unsigned long timestamp = millis();
 
-  // Validazione dato
   RisultatoValidazione risultato = validaDatoSensore(
     umidita,
     timestamp,
@@ -159,10 +167,12 @@ RisultatoValidazione read_humidity_sht21() {
     _configValidazioneUmidita
   );
 
-  // Se valido, verifica soglie
   if (risultato.valido) {
     verificaSoglie(risultato.valorePulito, _sht21_umidita_sogliaMin, _sht21_umidita_sogliaMax, "SHT21_HUM");
     _sht21_umidita_contatore++;
+
+    // >>> CHIAMATA AL METODO DB (STUB)
+    scritturaDatoNelDB_sht21_humidity(&risultato);
   }
 
   return risultato;
@@ -172,7 +182,6 @@ RisultatoValidazione read_humidity_sht21() {
 // READ TEMPERATURE - Lettura temperatura
 // ============================================================================
 RisultatoValidazione read_temperature_sht21() {
-  // Verifica se sensore abilitato
   if (!_sht21_temp_abilitato) {
     RisultatoValidazione risultato;
     risultato.valido = false;
@@ -182,7 +191,6 @@ RisultatoValidazione read_temperature_sht21() {
     return risultato;
   }
 
-  // Verifica se sensore inizializzato
   if (!_sht21_inizializzato) {
     RisultatoValidazione risultato;
     risultato.valido = false;
@@ -192,14 +200,11 @@ RisultatoValidazione read_temperature_sht21() {
     return risultato;
   }
 
-  // Lettura temperatura
   float temperatura = sht21.readTemperature();
 
-  // Verifica lettura valida
   bool sensoreReady = !isnan(temperatura);
   unsigned long timestamp = millis();
 
-  // Validazione dato
   RisultatoValidazione risultato = validaDatoSensore(
     temperatura,
     timestamp,
@@ -207,10 +212,12 @@ RisultatoValidazione read_temperature_sht21() {
     _configValidazioneTemp
   );
 
-  // Se valido, verifica soglie
   if (risultato.valido) {
     verificaSoglie(risultato.valorePulito, _sht21_temp_sogliaMin, _sht21_temp_sogliaMax, "SHT21_TEMP");
     _sht21_temp_contatore++;
+
+    // >>> CHIAMATA AL METODO DB (STUB)
+    scritturaDatoNelDB_sht21_temperature(&risultato);
   }
 
   return risultato;
