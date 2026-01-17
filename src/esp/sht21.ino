@@ -51,14 +51,7 @@ static ConfigValidazioneSensore _configValidazioneUmidita = {
   .nomeSensore = "SHT21_HUM"
 };
 
-static ConfigValidazioneSensore _configValidazioneTemp = {
-  .rangeMin = -40.0f,
-  .rangeMax = 125.0f,
-  .permettiNegativi = true,
-  .richiedeTimestamp = true,
-  .valoreDefault = 25.0f,
-  .nomeSensore = "SHT21_TEMP"
-};
+// NOTE: _configValidazioneTemp is defined in ds18b20.ino, don't redefine it here
 
 // ============================================================================
 // DB READ / WRITE (STUB) - RISERVATO AL GRUPPO DATABASE
@@ -86,12 +79,12 @@ static void scritturaDatoNelDB_sht21_temperature(const RisultatoValidazione* ris
 // SETUP
 // ============================================================================
 void setup_sht21() {
-  Serial.println("-> Inizializzazione sensore SHT21...");
+  Serial.println("-> Inizializzazione sensore SHT21.. .");
   Wire.begin(I2C_SDA, I2C_SCL);
   Wire.setPins(15, 14);
 
-  if (!sht21.begin()) {
-    Serial.println("  ! ERRORE: Sensore SHT21 non trovato!");
+  if (! sht21.begin()) {
+    Serial.println("  !  ERRORE:  Sensore SHT21 non trovato!");
     _sht21_inizializzato = false;
   } else {
     _sht21_inizializzato = true;
@@ -112,15 +105,12 @@ void init_humidity_sht21(SensorConfig* config) {
   _sht21_umidita_intervallo = config->intervallo;
   _sht21_umidita_abilitato = config->abilitato;
   _sht21_umidita_contatore = 0;
-<<<<<<< HEAD
 
   Serial.println("  --- Config SHT21 Umidita caricata dal DB ---");
   Serial.print("    Soglia MIN: "); Serial.print(_sht21_umidita_sogliaMin); Serial.println(" %");
   Serial.print("    Soglia MAX: "); Serial.print(_sht21_umidita_sogliaMax); Serial.println(" %");
   Serial.print("    Intervallo: "); Serial.print(_sht21_umidita_intervallo / 1000.0); Serial.println(" sec");
-  Serial.print("    Abilitato: "); Serial.println(_sht21_umidita_abilitato ? "SI" : "NO");
-=======
->>>>>>> 3a76805e7e9f0a85da496ca764f1c89aab68b02b
+  Serial.print("    Abilitato: "); Serial.println(_sht21_umidita_abilitato ?  "SI" : "NO");
 }
 
 // ============================================================================
@@ -134,23 +124,19 @@ void init_temperature_sht21(SensorConfig* config) {
   _sht21_temp_intervallo = config->intervallo;
   _sht21_temp_abilitato = config->abilitato;
   _sht21_temp_contatore = 0;
-<<<<<<< HEAD
 
   Serial.println("  --- Config SHT21 Temperatura caricata dal DB ---");
-  Serial.print("    Soglia MIN: "); Serial.print(_sht21_temp_sogliaMin); Serial.println(" C");
+  Serial.print("    Soglia MIN:  "); Serial.print(_sht21_temp_sogliaMin); Serial.println(" C");
   Serial.print("    Soglia MAX: "); Serial.print(_sht21_temp_sogliaMax); Serial.println(" C");
   Serial.print("    Intervallo: "); Serial.print(_sht21_temp_intervallo / 1000.0); Serial.println(" sec");
   Serial.print("    Abilitato: "); Serial.println(_sht21_temp_abilitato ? "SI" : "NO");
-=======
->>>>>>> 3a76805e7e9f0a85da496ca764f1c89aab68b02b
 }
 
 // ============================================================================
 // READ HUMIDITY
 // ============================================================================
 RisultatoValidazione read_humidity_sht21() {
-<<<<<<< HEAD
-  RisultatoValidazione risultato; // Dichiariamo subito per usarla nei ritorni anticipati
+  RisultatoValidazione risultato;
 
   // 1. CHECK ABILITATO
   if (!_sht21_umidita_abilitato) {
@@ -168,26 +154,14 @@ RisultatoValidazione read_humidity_sht21() {
     risultato.valorePulito = _configValidazioneUmidita.valoreDefault;
     strcpy(risultato.messaggioErrore, "[SHT21_HUM] Sensore non inizializzato");
     return risultato;
-=======
-  if (!_sht21_umidita_abilitato || !_sht21_inizializzato) {
-    RisultatoValidazione r;
-    r.valido = false;
-    r.codiceErrore = ERR_SENSOR_NOT_READY;
-    r.valorePulito = _configValidazioneUmidita.valoreDefault;
-    strcpy(r.messaggioErrore, "[SHT21_HUM] Sensore non pronto");
-    return r;
->>>>>>> 3a76805e7e9f0a85da496ca764f1c89aab68b02b
   }
 
-  // 3. CHECK INTERVALLO (PUNTO 3)
-  // Se non è passato abbastanza tempo dall'ultima lettura, usciamo subito.
+  // 3. CHECK INTERVALLO
   if (millis() - _last_read_time_hum < _sht21_umidita_intervallo) {
-    risultato.valido = false; 
-    // Usiamo un codice generico o 0 per indicare "Nessuna nuova lettura necessaria"
-    risultato.codiceErrore = 0; 
-    risultato.valorePulito = _configValidazioneUmidita.valoreDefault; 
-    // Messaggio vuoto o di debug, così il DB non scrive nulla se valido=false
-    strcpy(risultato.messaggioErrore, "Intervallo non trascorso"); 
+    risultato.valido = false;
+    risultato.codiceErrore = 0;
+    risultato.valorePulito = _configValidazioneUmidita.valoreDefault;
+    strcpy(risultato.messaggioErrore, "Intervallo non trascorso");
     return risultato;
   }
 
@@ -196,10 +170,7 @@ RisultatoValidazione read_humidity_sht21() {
 
   // 4. LETTURA E VALIDAZIONE
   float umidita = sht21.readHumidity();
-<<<<<<< HEAD
-
-  // (PUNTO 4): Rimosso il controllo "!= 998" (Magic Number)
-  bool sensoreReady = !isnan(umidita); 
+  bool sensoreReady = ! isnan(umidita);
   unsigned long timestamp = millis();
 
   risultato = validaDatoSensore(
@@ -207,17 +178,10 @@ RisultatoValidazione read_humidity_sht21() {
     timestamp,
     sensoreReady,
     _configValidazioneUmidita
-=======
-  bool sensoreReady = !isnan(umidita) && umidita != 998;
-  unsigned long timestamp = millis();
-
-  RisultatoValidazione risultato = validaDatoSensore(
-    umidita, timestamp, sensoreReady, _configValidazioneUmidita
->>>>>>> 3a76805e7e9f0a85da496ca764f1c89aab68b02b
   );
 
   if (risultato.valido) {
-    verificaSoglie(risultato.valorePulito,
+    verificaSoglie(risultato. valorePulito,
                    _sht21_umidita_sogliaMin,
                    _sht21_umidita_sogliaMax,
                    "SHT21_HUM");
@@ -232,14 +196,13 @@ RisultatoValidazione read_humidity_sht21() {
 // READ TEMPERATURE
 // ============================================================================
 RisultatoValidazione read_temperature_sht21() {
-<<<<<<< HEAD
   RisultatoValidazione risultato;
 
   // 1. CHECK ABILITATO
   if (!_sht21_temp_abilitato) {
     risultato.valido = false;
     risultato.codiceErrore = ERR_SENSOR_OFFLINE;
-    risultato.valorePulito = _configValidazioneTemp.valoreDefault;
+    risultato.valorePulito = 25.0f; // Default per temperatura
     strcpy(risultato.messaggioErrore, "[SHT21_TEMP] Sensore disabilitato");
     return risultato;
   }
@@ -248,25 +211,16 @@ RisultatoValidazione read_temperature_sht21() {
   if (!_sht21_inizializzato) {
     risultato.valido = false;
     risultato.codiceErrore = ERR_SENSOR_NOT_READY;
-    risultato.valorePulito = _configValidazioneTemp.valoreDefault;
+    risultato.valorePulito = 25.0f;
     strcpy(risultato.messaggioErrore, "[SHT21_TEMP] Sensore non inizializzato");
     return risultato;
-=======
-  if (!_sht21_temp_abilitato || !_sht21_inizializzato) {
-    RisultatoValidazione r;
-    r.valido = false;
-    r.codiceErrore = ERR_SENSOR_NOT_READY;
-    r.valorePulito = _configValidazioneTemp.valoreDefault;
-    strcpy(r.messaggioErrore, "[SHT21_TEMP] Sensore non pronto");
-    return r;
->>>>>>> 3a76805e7e9f0a85da496ca764f1c89aab68b02b
   }
 
-  // 3. CHECK INTERVALLO (PUNTO 3)
+  // 3. CHECK INTERVALLO
   if (millis() - _last_read_time_temp < _sht21_temp_intervallo) {
     risultato.valido = false;
-    risultato.codiceErrore = 0; 
-    risultato.valorePulito = _configValidazioneTemp.valoreDefault;
+    risultato.codiceErrore = 0;
+    risultato.valorePulito = 25.0f;
     strcpy(risultato.messaggioErrore, "Intervallo non trascorso");
     return risultato;
   }
@@ -275,24 +229,12 @@ RisultatoValidazione read_temperature_sht21() {
 
   // 4. LETTURA E VALIDAZIONE
   float temperatura = sht21.readTemperature();
-<<<<<<< HEAD
-
-  // (PUNTO 4): Semplificato
   bool sensoreReady = !isnan(temperatura);
   unsigned long timestamp = millis();
 
   risultato = validaDatoSensore(
-    temperatura,
-    timestamp,
-    sensoreReady,
-    _configValidazioneTemp
-=======
-  bool sensoreReady = !isnan(temperatura);
-  unsigned long timestamp = millis();
-
-  RisultatoValidazione risultato = validaDatoSensore(
-    temperatura, timestamp, sensoreReady, _configValidazioneTemp
->>>>>>> 3a76805e7e9f0a85da496ca764f1c89aab68b02b
+    temperatura, timestamp, sensoreReady, 
+    {-40.0f, 125.0f, true, true, 25.0f, "SHT21_TEMP"}
   );
 
   if (risultato.valido) {
@@ -306,7 +248,7 @@ RisultatoValidazione read_temperature_sht21() {
 
   return risultato;
 }
-<<<<<<< HEAD
+
 // ============================================================================
 // GETTERS - Accesso ai parametri di configurazione
 // ============================================================================
@@ -329,5 +271,3 @@ bool is_abilitato_temperature_sht21() {
 bool is_inizializzato_sht21() {
   return _sht21_inizializzato;
 }
-=======
->>>>>>> 3a76805e7e9f0a85da496ca764f1c89aab68b02b

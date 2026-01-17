@@ -151,6 +151,46 @@ struct RisultatoValidazione {
   unsigned long timestamp;  // AGGIUNTO:  mancava nel tuo codice originale
 };
 
+struct ServerConfig {
+  char baseUrl[128];
+  char apiKey[64];
+  int timeout;
+};
+
+// Valore sensore da salvare
+struct SensorData {
+  char macAddress[18];
+  char tipoSensore[32];
+  char idSensore[32];
+  float valore;
+  char unita[8];
+  unsigned long timestamp;
+  int codiceStato;
+  bool alert;
+  char alertTipo[16];
+};
+
+// Notifica/Log
+struct NotificationData {
+  char macAddress[18];
+  char tipoSensore[32];
+  float valoreRiferimento;
+  unsigned long timestamp;
+  char messaggio[128];
+  int livello;  // 0=INFO, 1=WARNING, 2=ERROR, 3=CRITICAL
+};
+
+// Risposta configurazione
+struct ConfigData {
+  bool success;
+  SensorConfig ds18b20;
+  SensorConfig sht21_humidity;
+  SensorConfig sht21_temperature;
+  SensorConfig hx711;
+  float calibrationFactor;
+  long calibrationOffset;
+};
+
 // ============================================================================
 // FUNZIONI HELPER
 // ============================================================================
