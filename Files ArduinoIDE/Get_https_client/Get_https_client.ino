@@ -11,13 +11,13 @@
 // Configurazione RestDB - CLONE 5
 #define RESTDB_URL "https://clonedb5dhsjjhhfudii-66f3.restdb.io"
 #define API_KEY "28ade382b313db86d3cab6da35d50b0666f2f"
-#define URLsensori"https://clonedb5dhsjjhhfudii-66f3.restdb.io/rest/sensori"
+#define URLsensori "https://clonedb5dhsjjhhfudii-66f3.restdb.io/rest/sensori"
 
 void setup() {
   Serial.begin(115200);
   delay(1000);
   
-  Serial.println("\n=== ESP32-CAM RestDB - GET Dati ===");
+  Serial.println("\n=== ESP32-CAM RestDB - GET Sensori ===");
   Serial.println("Database: CLONE 5");
   Serial.println("Connessione WiFi...");
   
@@ -37,8 +37,11 @@ void setup() {
     Serial.print("  IP: ");
     Serial.println(WiFi.localIP());
     
-    // Lettura dati dal database
-    leggiDati();
+    // Attesa per stabilizzare connessione
+    delay(1000);
+    
+    // Lettura dati sensori
+    leggiSensori();
     
   } else {
     Serial.println("✗ Connessione WiFi fallita!");
@@ -55,48 +58,48 @@ void loop() {
   delay(10000);
 }
 
-void leggiDati() {
-  Serial.println("\n--- GET dati dal database ---");
+void leggiSensori() {
+  Serial.println("\n--- GET dati sensori dal database ---");
   
   WiFiClientSecure *client = new WiFiClientSecure;
   
   if(client) {
+    // Impostazioni SSL
     client->setInsecure();
+    client->setTimeout(15); // Timeout 15 secondi
     
     HTTPClient https;
     
-    String endpoint = RESTDB_URL;
-    
-    // ===== SCEGLI LA TABELLA DA LEGGERE =====
-    // Opzione 1: Leggi SENSORI (per sen_min e sen_max)
-    endpoint += "/rest/sensori";
-    
-    // Opzione 2: Leggi RILEVAZIONI (per ril_dataOra timestamp)
-    // endpoint += "/rest/rilevazioni";
-    
-    // Puoi anche filtrare o ordinare:
-    // endpoint += "?max=10&sort=_created&dir=-1"; // ultimi 10 record
-    
+    // Usa URLsensori direttamente
     Serial.print("[GET] ");
-    Serial.println(endpoint);
+    Serial.println(URLsensori);
     
-    if (https.begin(*client, endpoint)) {
+    // Timeout più lungo per ESP32-CAM
+    https.setTimeout(15000); // 15 secondi
+    
+    if (https.begin(*client, URLsensori)) {
+      
+      Serial.println("[HTTPS] Connessione stabilita");
       
       https.addHeader("Content-Type", "application/json");
       https.addHeader("x-apikey", API_KEY);
       https.addHeader("cache-control", "no-cache");
       
+      Serial.println("[GET] Invio richiesta...");
+      
       int httpCode = https.GET();
       
+      Serial.print("[HTTP] Risposta ricevuta - Codice: ");
+      Serial.println(httpCode);
+      
       if (httpCode > 0) {
-        Serial.printf("[HTTP] Codice: %d ", httpCode);
         
         if (httpCode == HTTP_CODE_OK) {
           Serial.println("✓ SUCCESS");
           
           String payload = https.getString();
           
-          // Mostra la risposta RAW del server
+          // Mostra risposta RAW
           Serial.println("\n--- RISPOSTA SERVER (RAW) ---");
           Serial.println(payload);
           Serial.println("-----------------------------\n");
@@ -110,49 +113,49 @@ void leggiDati() {
               JsonArray array = responseDoc.as<JsonArray>();
               
               Serial.println("╔════════════════════════════════════════════════╗");
-              Serial.println("║              DATI DAL DATABASE                 ║");
+              Serial.println("║           SENSORI - TABELLA COMPLETA           ║");
               Serial.println("╠════════════════════════════════════════════════╣");
               
               if (array.size() == 0) {
-                Serial.println("║ ⚠️  NESSUN DATO TROVATO NEL DATABASE!         ║");
-                Serial.println("║                                               ║");
-                Serial.println("║ Possibili motivi:                             ║");
-                Serial.println("║ 1. La tabella è vuota                         ║");
-                Serial.println("║ 2. Stai leggendo la tabella sbagliata         ║");
-                Serial.println("║ 3. Devi prima inserire dati nel database      ║");
+                Serial.println("║ ⚠️  NESSUN SENSORE NEL DATABASE!              ║");
+                Serial.println("║                                                ║");
+                Serial.println("║ Devi prima inserire dati nella tabella SENSORI║");
+                Serial.println("║ usando POST o manualmente da RestDB.io        ║");
                 Serial.println("╚════════════════════════════════════════════════╝");
               } else {
                 int count = 0;
                 for (JsonObject obj : array) {
                   count++;
                   
-                  Serial.print("║ Record #");
+                  Serial.print("║ Sensore #");
                   Serial.println(count);
                   Serial.println("╟────────────────────────────────────────────────╢");
                   
-                  // TABELLA SENSORI
+                  // sen_id
+                  if (!obj["sen_id"].isNull()) {
+                    Serial.print("║ ID Sensore:  ");
+                    Serial.println(obj["sen_id"].as<int>());
+                  }
+                  
+                  // sen_stato
+                  if (!obj["sen_stato"].isNull()) {
+                    Serial.print("║ Stato:       ");
+                    Serial.println(obj["sen_stato"].as<bool>() ? "ATTIVO" : "SPENTO");
+                  }
+                  
+                  // sen_min
                   if (!obj["sen_min"].isNull()) {
                     Serial.print("║ Soglia MIN:  ");
                     Serial.println(obj["sen_min"].as<float>(), 2);
                   }
                   
+                  // sen_max
                   if (!obj["sen_max"].isNull()) {
                     Serial.print("║ Soglia MAX:  ");
                     Serial.println(obj["sen_max"].as<float>(), 2);
                   }
                   
-                  // TABELLA RILEVAZIONI
-                  if (!obj["ril_dataOra"].isNull()) {
-                    Serial.print("║ Timestamp:   ");
-                    Serial.println(obj["ril_dataOra"].as<const char*>());
-                  }
-                  
-                  if (!obj["ril_dato"].isNull()) {
-                    Serial.print("║ Dato:        ");
-                    Serial.println(obj["ril_dato"].as<float>(), 2);
-                  }
-                  
-                  // Timestamp automatico RestDB (presente in tutte le tabelle)
+                  // Timestamp automatico RestDB
                   if (!obj["_created"].isNull()) {
                     Serial.print("║ Creato:      ");
                     Serial.println(obj["_created"].as<const char*>());
@@ -160,23 +163,27 @@ void leggiDati() {
                   
                   Serial.println("╚════════════════════════════════════════════════╝");
                   Serial.println();
-                  
-                  // Limita a primi 5 per non riempire il serial
-                  if (count >= 5) {
-                    Serial.println("(mostrati primi 5 record...)");
-                    break;
-                  }
                 }
                 
-                Serial.print("Totale record trovati: ");
+                Serial.print("Totale sensori: ");
                 Serial.println(array.size());
               }
               
             } else if (responseDoc.is<JsonObject>()) {
-              // Singolo record
+              // Singolo sensore
               Serial.println("╔════════════════════════════════════════════════╗");
-              Serial.println("║              SINGOLO RECORD                    ║");
+              Serial.println("║              SINGOLO SENSORE                   ║");
               Serial.println("╠════════════════════════════════════════════════╣");
+              
+              if (!responseDoc["sen_id"].isNull()) {
+                Serial.print("║ ID Sensore:  ");
+                Serial.println(responseDoc["sen_id"].as<int>());
+              }
+              
+              if (!responseDoc["sen_stato"].isNull()) {
+                Serial.print("║ Stato:       ");
+                Serial.println(responseDoc["sen_stato"].as<bool>() ? "ATTIVO" : "SPENTO");
+              }
               
               if (!responseDoc["sen_min"].isNull()) {
                 Serial.print("║ Soglia MIN:  ");
@@ -186,16 +193,6 @@ void leggiDati() {
               if (!responseDoc["sen_max"].isNull()) {
                 Serial.print("║ Soglia MAX:  ");
                 Serial.println(responseDoc["sen_max"].as<float>(), 2);
-              }
-              
-              if (!responseDoc["ril_dataOra"].isNull()) {
-                Serial.print("║ Timestamp:   ");
-                Serial.println(responseDoc["ril_dataOra"].as<const char*>());
-              }
-              
-              if (!responseDoc["ril_dato"].isNull()) {
-                Serial.print("║ Dato:        ");
-                Serial.println(responseDoc["ril_dato"].as<float>(), 2);
               }
               
               if (!responseDoc["_created"].isNull()) {
@@ -211,8 +208,15 @@ void leggiDati() {
             Serial.println(error.c_str());
           }
           
+        } else if (httpCode == HTTP_CODE_MOVED_PERMANENTLY || httpCode == HTTP_CODE_FOUND) {
+          Serial.println("⚠ Redirect - controlla URL");
+        } else if (httpCode == HTTP_CODE_UNAUTHORIZED) {
+          Serial.println("✗ ERRORE: API Key non valida!");
+        } else if (httpCode == HTTP_CODE_NOT_FOUND) {
+          Serial.println("✗ ERRORE: Endpoint non trovato!");
         } else {
-          Serial.println("✗ ERRORE");
+          Serial.print("✗ ERRORE HTTP: ");
+          Serial.println(httpCode);
           String errorPayload = https.getString();
           if (errorPayload.length() > 0) {
             Serial.println("\n--- Dettagli errore ---");
@@ -221,69 +225,54 @@ void leggiDati() {
           }
         }
       } else {
-        Serial.printf("\n✗ Errore connessione: %s\n", https.errorToString(httpCode).c_str());
+        Serial.printf("✗ Errore connessione: %s\n", https.errorToString(httpCode).c_str());
+        Serial.println("\nPossibili cause:");
+        Serial.println("- Timeout di connessione");
+        Serial.println("- Problemi DNS");
+        Serial.println("- Firewall/Router blocca connessione");
+        Serial.println("- SSL handshake fallito");
       }
       
       https.end();
       
     } else {
-      Serial.println("✗ HTTPS begin fallito!");
+      Serial.println("✗ [HTTPS] Impossibile iniziare connessione!");
+      Serial.println("Verifica URL e connessione internet");
     }
     
     delete client;
     
   } else {
-    Serial.println("✗ Impossibile creare client!");
+    Serial.println("✗ Impossibile creare WiFiClientSecure!");
   }
 }
 
 /*
  * ╔═══════════════════════════════════════════════════════════╗
- * ║           CODICE CORRETTO - DATABASE CLONE 5             ║
+ * ║     CODICE GET - SENSORI CON DEBUG E TIMEOUT FISSI       ║
  * ╚═══════════════════════════════════════════════════════════╝
  * 
- * PROBLEMA RISOLTO:
- * ✓ La tabella SENSORI era vuota (0 record)
- * ✓ Aggiunto supporto per ril_dataOra (timestamp RILEVAZIONI)
- * ✓ Mostra risposta RAW per debug
- * ✓ Avvisa se database vuoto
- * 
+ * CORREZIONI APPLICATE:
  * ═══════════════════════════════════════════════════════════
- * TABELLE DISPONIBILI:
+ * ✓ Aggiunta #define URLsensori
+ * ✓ Timeout aumentato a 15 secondi (client e https)
+ * ✓ Delay 1s dopo connessione WiFi per stabilizzare
+ * ✓ Debug dettagliato step-by-step
+ * ✓ Gestione errori HTTP migliorata
+ * ✓ Messaggi di errore specifici per ogni caso
+ * 
+ * CAMPI LETTI:
  * ═══════════════════════════════════════════════════════════
+ * ✓ sen_id      - ID sensore
+ * ✓ sen_stato   - Stato ON/OFF
+ * ✓ sen_min     - Soglia minima
+ * ✓ sen_max     - Soglia massima
+ * ✓ _created    - Timestamp creazione
  * 
- * SENSORI (/rest/sensori):
- *   - sen_min (soglia minima)
- *   - sen_max (soglia massima)
- *   - sen_stato (attivo/non attivo)
- * 
- * RILEVAZIONI (/rest/rilevazioni):
- *   - ril_dato (valore misurato)
- *   - ril_dataOra (timestamp) ← QUESTO!
- * 
- * Tutte le tabelle hanno anche:
- *   - _created (timestamp creazione automatico RestDB)
- *   - _changed (timestamp ultima modifica)
- * 
+ * SE SI BLOCCA ANCORA:
  * ═══════════════════════════════════════════════════════════
- * COME USARE:
- * ═══════════════════════════════════════════════════════════
- * 
- * 1. Cambia la riga 52 per scegliere la tabella:
- *    endpoint += "/rest/sensori";      ← soglie min/max
- *    endpoint += "/rest/rilevazioni";  ← dati + timestamp
- * 
- * 2. Se il database è vuoto, devi prima inserire dati
- *    usando il POST o manualmente da RestDB.io
- * 
- * 3. Il codice mostra la risposta RAW per capire
- *    esattamente cosa c'è nel database
- * 
- * ═══════════════════════════════════════════════════════════
- * OUTPUT:
- * ═══════════════════════════════════════════════════════════
- * Vedrai:
- * - La risposta completa del server (JSON)
- * - Dati formattati con sen_min, sen_max, ril_dataOra
- * - Avviso se database vuoto
+ * 1. Controlla che il router non blocchi ESP32-CAM
+ * 2. Prova a pingare clonedb5dhsjjhhfudii-66f3.restdb.io
+ * 3. Verifica che la API key sia corretta
+ * 4. Controlla Serial Monitor per vedere dove si ferma
  */
