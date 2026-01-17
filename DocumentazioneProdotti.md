@@ -4,7 +4,6 @@ Funzione:
 I router permettono la connessione a Internet dell’arnia, rendendo possibile la trasmissione dei dati (temperatura, umidità, peso, stato generale) verso l’apicoltore, anche a chilometri di distanza.
 
 Perché ne servono tre:
-
 Maggiore stabilità della rete
 
 Possibilità di coprire aree isolate o con segnale debole
@@ -19,7 +18,6 @@ Funzione:
 Fornisce energia elettrica autonoma a tutto il sistema.
 
 Perché è fondamentale:
-
 Le arnie spesso si trovano in zone isolate
 
 Non è necessario collegarsi alla rete elettrica
@@ -34,7 +32,6 @@ Funzione:
 Accumulo dell’energia prodotta dal pannello solare.
 
 Perché ne servono tre:
-
 Garantire funzionamento continuo anche di notte o in caso di maltempo
 
 Maggiore affidabilità e durata del sistema
@@ -47,7 +44,6 @@ Funzione:
 Proteggono i componenti elettronici (router, batterie, centraline).
 
 Perché sono necessarie:
-
 Protezione da pioggia, umidità, polvere e insetti che possono entrare all’interno
 
 Maggiore sicurezza e durata dei dispositivi
@@ -62,7 +58,6 @@ Funzione:
 Fissaggio ordinato e sicuro dei cavi e dei componenti.
 
 Perché sono importanti:
-
 Evitano danni ai cavi
 
 Rendono il sistema più pulito e professionale
