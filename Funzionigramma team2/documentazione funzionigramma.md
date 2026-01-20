@@ -24,7 +24,7 @@ Questa è la sezione centrale dell'applicazione, dove l'utente può monitorare i
     
 -   **Pulsante CAMBIA APIARIO (3.2):** Consente di tornare indietro alla schermata di selezione per scegliere un'altra arnia o un altro apiario senza disconnettersi.
     
--   **Pulsante VALORE (3.3):** Apre la sezione dedicata alla telemetria e ai sensori (Umidità, Temperatura, Peso).
+-   **Pulsante VALORE (3.3.1 3.3.2 3.3.3):** Apre la sezione dedicata alla telemetria e ai sensori (Umidità, Temperatura, Peso).
     
 -   **Pulsante IMPOSTA ARNIA (3.4):** Indirizza l'utente alla configurazione dei parametri di controllo.
     
