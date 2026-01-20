@@ -1,6 +1,3 @@
-Questa è una documentazione tecnica strutturata del diagramma di flusso (funzionigramma) caricato, che descrive il percorso utente e le funzionalità di un'applicazione per la gestione di apiari e arnie.
-
-----------
 
 ## 1. Accesso al Sistema (Schermata Login)
 
