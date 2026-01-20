@@ -44,5 +44,5 @@ L'utente ha la possibilità di personalizzare gli allarmi e i limiti operativi d
 
 -   **Funzionalità:** Permette di impostare e gestire le soglie dei valori critici (ad esempio, alert se la temperatura scende sotto un certo livello).
     
--   **Pulsante INDIETRO (5.1):** Consente di salvare o uscire dalla configurazione tornando alla Schermata di Gestione Arnia.
+-   **Pulsante INDIETRO (4.1):** Consente di salvare o uscire dalla configurazione tornando alla Schermata di Gestione Arnia.
 -   **Schermata Notifiche Valore:** Visualizza il dettaglio dei dati raccolti. Anche qui, un **Pulsante INDIETRO** garantisce la navigazione di ritorno alla schermata di gestione arnia.
