@@ -1,0 +1,104 @@
+.barra-laterale {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  background: linear-gradient(180deg, #d4a017 0%, #b8860b 100%);
+  color: white;
+  transition: width 0.3s ease;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.barra-laterale.chiusa {
+  width: 60px;
+}
+
+.intestazione-barra {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.pulsante-toggle {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.navigazione-barra {
+  flex: 1;
+  padding: 20px 0;
+}
+
+.voce-nav {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 20px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 16px;
+  text-align: left;
+}
+
+.voce-nav:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.voce-nav.attiva {
+  background: rgba(255, 255, 255, 0.2);
+  border-left: 4px solid white;
+}
+
+.barra-laterale.chiusa .voce-nav {
+  justify-content: center;
+  padding: 15px;
+}
+
+.barra-laterale.chiusa .voce-nav span {
+  display: none;
+}
+
+.pie-barra {
+  padding: 20px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.logout {
+  color: #ff6b6b;
+}
+
+.info-barra {
+  padding: 20px;
+  font-size: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.elemento-info {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.etichetta-info {
+  opacity: 0.7;
+  font-weight: 600;
+}
+
+.valore-info {
+  font-weight: normal;
+}

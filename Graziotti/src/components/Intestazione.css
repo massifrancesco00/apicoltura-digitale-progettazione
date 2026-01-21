@@ -1,0 +1,18 @@
+.intestazione {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 0 20px 0;
+}
+
+.badge-utente {
+  background: white;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.nome-utente {
+  font-weight: 600;
+  color: #b8860b;
+}
