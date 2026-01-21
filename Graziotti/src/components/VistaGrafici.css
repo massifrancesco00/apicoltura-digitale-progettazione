@@ -1,0 +1,90 @@
+.vista-grafici {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.vista-grafici > h2 {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.sezione-grafico {
+  background: white;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.sezione-grafico h3 {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.controlli-grafico {
+  display: flex;
+  align-items: flex-end;
+  gap: 15px;
+}
+
+.gruppo-controllo {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.gruppo-controllo label {
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+}
+
+.gruppo-controllo input {
+  padding: 8px 12px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  width: 80px;
+  transition: border-color 0.3s ease;
+}
+
+.gruppo-controllo input:focus {
+  outline: none;
+  border-color: #b8860b;
+}
+
+.pulsante-grafico {
+  padding: 8px 20px;
+  background: linear-gradient(135deg, #d4a017 0%, #b8860b 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pulsante-grafico:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(184, 134, 11, 0.4);
+}
+
+.sezione-registro {
+  background: white;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.placeholder-registro {
+  padding: 40px;
+  text-align: center;
+  color: #999;
+  background: #f8f9fa;
+  border-radius: 10px;
+  border: 2px dashed #ddd;
+}

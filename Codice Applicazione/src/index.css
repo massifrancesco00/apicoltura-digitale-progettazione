@@ -1,0 +1,79 @@
+/* src/index.css */
+body { margin: 0; }
+
+/* Pattern Sfondo */
+.honeycomb-bg {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100' viewBox='0 0 56 100'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100L0 84L0 50L28 34L56 50L56 84L28 100L28 66Z' fill='%23FFD700' fill-opacity='0.08'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 1;
+}
+
+/* Animazioni Hover */
+.honey-btn-hover:hover { transform: translateY(-3px); filter: brightness(1.1); }
+.hex-hover:hover { transform: translateY(-5px); }
+.menu-btn-hover:hover { transform: rotate(90deg); transition: 0.3s; }
+
+/* --- CSS SLIDER MULTIPLO FIXATO --- */
+.multi-range-slider {
+    position: absolute;
+    pointer-events: none;
+    -webkit-appearance: none; /* Per Chrome/Safari/Edge vecchi */
+    appearance: none;         /* Standard moderno (rimuove il warning) */
+    width: 100%; height: 100%;
+    background: transparent;
+    margin: 0; top: 0; left: 0;
+}
+
+/* Rendiamo cliccabile SOLO il pallino (Thumb) */
+.multi-range-slider::-webkit-slider-thumb {
+    pointer-events: auto;
+    -webkit-appearance: none; /* Per Chrome/Safari */
+    appearance: none;         /* Standard */
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: red; 
+    opacity: 0;
+    cursor: pointer;
+    position: relative;
+    z-index: 10;
+}
+
+/* Per Firefox */
+.multi-range-slider::-moz-range-thumb {
+    pointer-events: auto;
+    width: 30px; height: 30px;
+    border: none; border-radius: 50%;
+    background: red; opacity: 0;
+    cursor: pointer;
+    position: relative; z-index: 10;
+}
+/* src/index.css */
+body { margin: 0; }
+
+.honeycomb-bg {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100' viewBox='0 0 56 100'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100L0 84L0 50L28 34L56 50L56 84L28 100L28 66Z' fill='%23FFD700' fill-opacity='0.08'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 1;
+}
+
+/* Animazione Pulsanti Generici */
+.honey-btn-hover:hover { 
+    transform: translateY(-3px); 
+    filter: brightness(1.1); 
+    transition: all 0.2s ease;
+}
+
+/* Animazione Pulsanti ESAGONALI */
+.hex-hover {
+    transition: transform 0.2s ease;
+}
+.hex-hover:hover { 
+    transform: translateY(-8px) scale(1.05); /* Salta in alto */
+    filter: drop-shadow(0 10px 5px rgba(192,86,0,0.3));
+}
+
+/* Animazione Menu */
+.menu-btn-hover:hover { 
+    transform: rotate(90deg); 
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+}
