@@ -1,6 +1,6 @@
 # Progettazione Funzioni 3.1/3.2/3.4 
 
-1. >**Dopo aver premuto il pulsante del menù a tendina detto anche pulsante ad Hamburger si aprirà il suddetto menù e mostreà le opzioni Logout/Cambia Apiari/Impostazioni Arnia. **
+1. >**Dopo aver premuto il pulsante del menù a tendina detto anche pulsante ad Hamburger si aprirà il suddetto menù e mostreà le opzioni Logout/Cambia Apiari/Impostazioni Arnia.**
     ```javascript
     function OpenMenuTendina();
     ```
