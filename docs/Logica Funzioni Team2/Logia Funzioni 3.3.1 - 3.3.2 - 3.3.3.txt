@@ -1,0 +1,13 @@
+
+# Progettazione Funzione 1.0 Login
+
+1. >**Il programma deve caricare una nuova pagina unica ogni volta cambiando i dati in base al valore cliccato**
+    ```javascript
+    function caricaDati(valore);
+    ```
+
+2. >**Dopodiche mostra la form con i dati caricari** (es. Numero giusto di caratteri)
+    ```javascript
+    function openFormValore();
+    ```
+    
