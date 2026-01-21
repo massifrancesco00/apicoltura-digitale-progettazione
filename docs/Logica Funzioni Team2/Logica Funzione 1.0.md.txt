@@ -1,0 +1,27 @@
+# Progettazione Funzione 1.0 Login
+
+1. >**Il programma deve leggere il valore sulla textBox**
+    ```javascript
+    function leggiPasskey();
+    ```
+
+2. >**Verificare che sia nel formato giusto** (es. Numero giusto di caratteri)
+    ```javascript
+    function valutaPasskey();
+    ```
+    1. >**Se il formato è giusto cerco la passkey nel database**
+       ```javascript
+       function confrontaPasskey();
+       ```
+       1. >**Trovato, accesso riuscito**
+          ```javascript
+          function openFormSceltaApiario();
+          ```
+       2. >**Non trovato, torni al punto 1**
+          ```javascript
+          function errorPasskey();
+          ```
+    2. >**Se il formato non è giusto ritorno al punto 1**
+       ```javascript
+       function errorPasskey();
+       ```

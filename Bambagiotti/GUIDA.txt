@@ -1,0 +1,5 @@
+GUIDA PROGETTO:
+1. npm install
+2. npm install react-icons
+3. npm install recharts
+4. npm run dev
