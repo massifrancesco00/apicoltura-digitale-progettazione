@@ -1,0 +1,97 @@
+.overlay-modale {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  backdrop-filter: blur(5px);
+}
+
+.modale-errore {
+  background: linear-gradient(135deg, #d4a017 0%, #b8860b 100%);
+  border-radius: 20px;
+  padding: 50px;
+  max-width: 500px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  animation: animazioneModale 0.3s ease-out;
+}
+
+@keyframes animazioneModale {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.icona-errore {
+  background: white;
+  padding: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modale-errore h2 {
+  color: white;
+  font-size: 32px;
+  margin: 0;
+}
+
+.modale-errore p {
+  color: white;
+  font-size: 16px;
+  opacity: 0.9;
+}
+
+.pulsanti-modale {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+}
+
+.pulsanti-modale button {
+  flex: 1;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pulsante-riprova {
+  background: white;
+  color: #b8860b;
+}
+
+.pulsante-riprova:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+}
+
+.pulsante-esci {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid white;
+}
+
+.pulsante-esci:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
