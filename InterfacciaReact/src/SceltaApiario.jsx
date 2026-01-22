@@ -14,8 +14,8 @@ const SceltaApiario = () => {
   const [loading, setLoading] = useState(true);
 
   // Configurazione RestDB. io
-  const RESTDB_URL = 'https://dbarniadigitale-0abe. restdb.io/rest';
-  const API_KEY = '696f697a3731f7b3333fd7d3';
+  const RESTDB_URL = 'https://databaseleopoldo56-45cd.restdb.io/rest';
+  const API_KEY = '6971ef3e3731f7e0e33fd81c';
 
   // Carica apiari all'avvio
   useEffect(() => {
