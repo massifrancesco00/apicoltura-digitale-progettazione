@@ -48,6 +48,7 @@ export const styles = {
     marginBottom: '15px',
     fontSize: '1rem',
     fontWeight: '500',
+    boxSizing: 'border-box',
   },
   honeyButton: {
     width: '100%',
