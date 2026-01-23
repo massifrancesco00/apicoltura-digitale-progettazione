@@ -5,8 +5,8 @@ import { theme, styles } from './theme';
 import HoneyMultiSlider from './components/HoneyMultiSlider';
 
 const Impostazioni = () => {
-    const RESTDB_URL = 'sonicmellicoclocorot-c202.restdb.io/rest';
-    const API_KEY = '69733a683731f776753fd874';
+    const RESTDB_URL = import.meta.env.VITE_API_URL;
+    const API_KEY = import.meta.env.VITE_API_KEY;
     const arniaId = localStorage.getItem('arniaSelezionata');
     console.log('ID arnia salvato:', arniaId);
     const navigate = useNavigate();
@@ -123,67 +123,67 @@ const Impostazioni = () => {
         }
     };
 
-  return (
-    <div style={{...styles.container, padding:'30px', justifyContent:'center', alignItems:'center'}}>
-      <div className="honeycomb-bg"></div>
-      <div style={{...styles.amberCard, width:'420px', position:'relative', zIndex:2}}>
-        <div style={{display:'flex', alignItems:'center', marginBottom:'30px'}}>
-            <button onClick={() => navigate('/home')} className="menu-btn-hover" style={{...styles.menuButton, position:'static', marginRight:'20px', width:'40px', height:'40px'}}>
-                <FaHome />
-            </button>
-            <h2 style={{margin:0, color: theme.deepHoney}}>Calibrazione</h2>
-        </div>
-        
-        <div style={{marginBottom:'40px'}}>
-            <div style={{display:'flex', justifyContent:'space-between', marginBottom:'30px', fontWeight:'bold', color: theme.deepHoney}}>
-                <span>UMIDITÀ (%)</span>
-                <span style={{color: theme.accentBlue}}>{humValues.join(' - ')}</span>
-            </div>
-            <HoneyMultiSlider 
-                values={humValues} 
-                min={0} max={100} 
-                onChange={setHumValues} 
-                colors={[theme.accentBlue, theme.accentGreen, theme.accentRed]} 
-            />
-        </div>
+    return (
+        <div style={{ ...styles.container, padding: '30px', justifyContent: 'center', alignItems: 'center' }}>
+            <div className="honeycomb-bg"></div>
+            <div style={{ ...styles.amberCard, width: '420px', position: 'relative', zIndex: 2 }}>
+                <div style={{ display: 'flex', alignItems: 'center', marginBottom: '30px' }}>
+                    <button onClick={() => navigate('/home')} className="menu-btn-hover" style={{ ...styles.menuButton, position: 'static', marginRight: '20px', width: '40px', height: '40px' }}>
+                        <FaHome />
+                    </button>
+                    <h2 style={{ margin: 0, color: theme.deepHoney }}>Calibrazione</h2>
+                </div>
 
-        <div style={{marginBottom:'20px'}}>
-            <div style={{display:'flex', justifyContent:'space-between', marginBottom:'30px', fontWeight:'bold', color: theme.deepHoney}}>
-                <span>TEMPERATURA (°C)</span>
-                <span style={{color: theme.accentRed}}>{tempValues.join(' - ')}</span>
-            </div>
-            <HoneyMultiSlider 
-                values={tempValues} 
-                min={0} max={50} 
-                onChange={setTempValues} 
-                colors={[theme.accentBlue, theme.accentGreen, theme.accentRed]}
-            />
-        </div>
+                <div style={{ marginBottom: '40px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '30px', fontWeight: 'bold', color: theme.deepHoney }}>
+                        <span>UMIDITÀ (%)</span>
+                        <span style={{ color: theme.accentBlue }}>{humValues.join(' - ')}</span>
+                    </div>
+                    <HoneyMultiSlider
+                        values={humValues}
+                        min={0} max={100}
+                        onChange={setHumValues}
+                        colors={[theme.accentBlue, theme.accentGreen, theme.accentRed]}
+                    />
+                </div>
 
-        <div style={{marginBottom:'20px'}}>
-            <div style={{display:'flex', justifyContent:'space-between', marginBottom:'30px', fontWeight:'bold', color: theme.deepHoney}}>
-                <span>PESO (Kg)</span>
-                <span style={{color: theme.accentRed}}>{weightValues.join(' - ')}</span>
-            </div>
-            <HoneyMultiSlider 
-                values={weightValues} 
-                min={0} max={50} 
-                onChange={setWeightValues} 
-                colors={[theme.accentBlue, theme.accentGreen, theme.accentRed]}
-            />
-        </div>
+                <div style={{ marginBottom: '20px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '30px', fontWeight: 'bold', color: theme.deepHoney }}>
+                        <span>TEMPERATURA (°C)</span>
+                        <span style={{ color: theme.accentRed }}>{tempValues.join(' - ')}</span>
+                    </div>
+                    <HoneyMultiSlider
+                        values={tempValues}
+                        min={0} max={50}
+                        onChange={setTempValues}
+                        colors={[theme.accentBlue, theme.accentGreen, theme.accentRed]}
+                    />
+                </div>
 
-        <button 
-            className="honey-btn-hover" 
-            style={{...styles.honeyButton, marginTop:'35px'}}
-            onClick={salvaConfigurazione}
-            disabled={isSaving}
-        >
-            {isSaving ? 'SALVATAGGIO...' : 'SALVA CONFIGURAZIONE'}
-        </button>
-      </div>
-    </div>
-  );
+                <div style={{ marginBottom: '20px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '30px', fontWeight: 'bold', color: theme.deepHoney }}>
+                        <span>PESO (Kg)</span>
+                        <span style={{ color: theme.accentRed }}>{weightValues.join(' - ')}</span>
+                    </div>
+                    <HoneyMultiSlider
+                        values={weightValues}
+                        min={0} max={50}
+                        onChange={setWeightValues}
+                        colors={[theme.accentBlue, theme.accentGreen, theme.accentRed]}
+                    />
+                </div>
+
+                <button
+                    className="honey-btn-hover"
+                    style={{ ...styles.honeyButton, marginTop: '35px' }}
+                    onClick={salvaConfigurazione}
+                    disabled={isSaving}
+                >
+                    {isSaving ? 'SALVATAGGIO...' : 'SALVA CONFIGURAZIONE'}
+                </button>
+            </div>
+        </div>
+    );
 };
 
 export default Impostazioni;

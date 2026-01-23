@@ -4,7 +4,7 @@ import { theme, styles } from './theme';
 
 const SceltaApiario = () => {
   const navigate = useNavigate();
-  
+
   // --- STATI PER I DATI ---
   const [apiari, setApiari] = useState([]);
   const [arnieTutte, setArnieTutte] = useState([]); // Database completo arnie
@@ -14,8 +14,8 @@ const SceltaApiario = () => {
   const [loading, setLoading] = useState(true);
 
   // Configurazione RestDB
-  const RESTDB_URL = 'sonicmellicoclocorot-c202.restdb.io/rest';
-  const API_KEY = '69733a683731f776753fd874';
+  const RESTDB_URL = import.meta.env.VITE_API_URL;
+  const API_KEY = import.meta.env.VITE_API_KEY;
 
   // --- FUNZIONI DI RECUPERO DATI (FETCH) ---
 
@@ -45,7 +45,7 @@ const SceltaApiario = () => {
         const primoId = dataApiari[0].api_id || dataApiari[0]._id;
         setApiarioSelezionato(primoId);
       }
-      
+
       console.log('✅ Dati caricati correttamente');
     } catch (error) {
       console.error('❌ Errore durante il fetch:', error);
@@ -63,9 +63,9 @@ const SceltaApiario = () => {
   useEffect(() => {
     if (apiarioSelezionato) {
       console.log('🔍 Filtro arnie per apiario ID:', apiarioSelezionato);
-      
+
       // Filtriamo assicurandoci che i tipi coincidano (stringa)
-      const filtrate = arnieTutte.filter(arnia => 
+      const filtrate = arnieTutte.filter(arnia =>
         String(arnia.arn_api_id) === String(apiarioSelezionato)
       );
 
@@ -90,7 +90,7 @@ const SceltaApiario = () => {
     if (apiarioSelezionato && arniaSelezionata) {
       const apiarioData = apiari.find(a => (a.api_id || a._id) === apiarioSelezionato);
       const arniaData = arnieFiltrate.find(a => a._id === arniaSelezionata);
-      
+
       // Salva l'arn_id dell'arnia in localStorage
       try {
         const arnId = arniaData?.arn_id || arniaSelezionata;
@@ -100,7 +100,7 @@ const SceltaApiario = () => {
       } catch (error) {
         console.error('❌ Errore nel salvataggio in localStorage:', error);
       }
-      
+
       navigate('/home', {
         state: {
           apiarioId: apiarioSelezionato,
@@ -133,7 +133,7 @@ const SceltaApiario = () => {
   return (
     <div style={{ ...styles.container, justifyContent: 'center', alignItems: 'center' }}>
       <div className="honeycomb-bg"></div>
-      
+
       <div style={{ ...styles.amberCard, width: '400px', zIndex: 2 }}>
         <h2 style={{ textAlign: 'center', color: theme.deepHoney, marginBottom: '24px' }}>
           Seleziona Obiettivo
@@ -144,7 +144,7 @@ const SceltaApiario = () => {
           <label style={{ display: 'block', marginBottom: '8px', color: theme.deepHoney, fontSize: '14px', fontWeight: 'bold' }}>
             📍 Scegli Apiario
           </label>
-          <select 
+          <select
             style={styles.warmInput}
             value={apiarioSelezionato}
             onChange={handleApiarioChange}
@@ -162,7 +162,7 @@ const SceltaApiario = () => {
           <label style={{ display: 'block', marginBottom: '8px', color: theme.deepHoney, fontSize: '14px', fontWeight: 'bold' }}>
             🐝 Scegli Arnia
           </label>
-          <select 
+          <select
             style={styles.warmInput}
             value={arniaSelezionata}
             onChange={(e) => setArniaSelezionata(e.target.value)}
@@ -183,15 +183,15 @@ const SceltaApiario = () => {
         {/* Box Info Selezionata */}
         {arniaSelezionata && (
           <div style={{ background: 'rgba(255,255,255,0.4)', padding: '12px', borderRadius: '8px', marginBottom: '20px', fontSize: '13px' }}>
-            <strong>Dettaglio Arnia:</strong><br/>
-            MAC: {arnieFiltrate.find(a => a._id === arniaSelezionata)?.arn_MacAddress}<br/>
+            <strong>Dettaglio Arnia:</strong><br />
+            MAC: {arnieFiltrate.find(a => a._id === arniaSelezionata)?.arn_MacAddress}<br />
             Stato: {arnieFiltrate.find(a => a._id === arniaSelezionata)?.arn_piena === 'true' ? 'Miele pronto' : 'In lavorazione'}
           </div>
         )}
 
-        <button 
-          onClick={handleVisualizzaDati} 
-          className="honey-btn-hover" 
+        <button
+          onClick={handleVisualizzaDati}
+          className="honey-btn-hover"
           style={{
             ...styles.honeyButton,
             opacity: (!apiarioSelezionato || !arniaSelezionata) ? 0.5 : 1,

@@ -4,8 +4,8 @@ import { FaBug } from 'react-icons/fa';
 import { theme, styles } from './theme';
 
 const Login = () => {
-  const RESTDB_URL = 'sonicmellicoclocorot-c202.restdb.io/rest';
-  const API_KEY = '69733a683731f776753fd874';
+  const RESTDB_URL = import.meta.env.VITE_API_URL;
+  const API_KEY =  import.meta.env.VITE_API_KEY;
   const navigate = useNavigate();
   
   const [password, setPassword] = useState('');
