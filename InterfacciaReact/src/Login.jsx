@@ -4,8 +4,8 @@ import { FaBug } from 'react-icons/fa';
 import { theme, styles } from './theme';
 
 const Login = () => {
-  const RESTDB_URL = 'https://databaseleopoldo56-45cd.restdb.io/rest';
-  const API_KEY = '6971ef3e3731f7e0e33fd81c';
+  const RESTDB_URL = 'sonicmellicoclocorot-c202.restdb.io/rest';
+  const API_KEY = '69733a683731f776753fd874';
   const navigate = useNavigate();
   
   const [password, setPassword] = useState('');

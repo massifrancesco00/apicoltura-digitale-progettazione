@@ -14,8 +14,8 @@ const SceltaApiario = () => {
   const [loading, setLoading] = useState(true);
 
   // Configurazione RestDB
-  const RESTDB_URL = 'https://databaseleopoldo56-45cd.restdb.io/rest';
-  const API_KEY = '6971ef3e3731f7e0e33fd81c';
+  const RESTDB_URL = 'sonicmellicoclocorot-c202.restdb.io/rest';
+  const API_KEY = '69733a683731f776753fd874';
 
   // --- FUNZIONI DI RECUPERO DATI (FETCH) ---
 
@@ -94,6 +94,7 @@ const SceltaApiario = () => {
       // Salva l'arn_id dell'arnia in localStorage
       try {
         const arnId = arniaData?.arn_id || arniaSelezionata;
+        localStorage.removeItem('arniaSelezionata');
         localStorage.setItem('arniaSelezionata', arnId);
         console.log('✅ arn_id salvato in localStorage:', arnId);
       } catch (error) {
