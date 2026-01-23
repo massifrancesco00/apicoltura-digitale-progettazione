@@ -5,9 +5,11 @@ import { theme, styles } from './theme';
 import HoneyMultiSlider from './components/HoneyMultiSlider';
 
 const Impostazioni = () => {
-  const navigate = useNavigate();
-  const [humValues, setHumValues] = useState([40, 55, 75]);
-  const [tempValues, setTempValues] = useState([18, 24, 35]);
+    const arniaId = localStorage.getItem('arniaSelezionata');
+    console.log('ID arnia salvato:', arniaId);
+    const navigate = useNavigate();
+    const [humValues, setHumValues] = useState([40, 55, 75]);
+    const [tempValues, setTempValues] = useState([18, 24, 35]);
 
   return (
     <div style={{...styles.container, padding:'30px', justifyContent:'center', alignItems:'center'}}>

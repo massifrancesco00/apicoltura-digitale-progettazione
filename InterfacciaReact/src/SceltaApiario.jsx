@@ -91,6 +91,15 @@ const SceltaApiario = () => {
       const apiarioData = apiari.find(a => (a.api_id || a._id) === apiarioSelezionato);
       const arniaData = arnieFiltrate.find(a => a._id === arniaSelezionata);
       
+      // Salva l'arn_id dell'arnia in localStorage
+      try {
+        const arnId = arniaData?.arn_id || arniaSelezionata;
+        localStorage.setItem('arniaSelezionata', arnId);
+        console.log('✅ arn_id salvato in localStorage:', arnId);
+      } catch (error) {
+        console.error('❌ Errore nel salvataggio in localStorage:', error);
+      }
+      
       navigate('/home', {
         state: {
           apiarioId: apiarioSelezionato,
