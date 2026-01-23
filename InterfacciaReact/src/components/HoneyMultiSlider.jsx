@@ -24,10 +24,10 @@ const HoneyMultiSlider = ({ values, min, max, onChange, colors }) => {
       <div style={{
         position: 'absolute',
         height: '8px',
-        background: `linear-gradient(to right, ${colors[0]} 0%, ${colors[1]} 50%, ${colors[2]} 100%)`,
+        background: `linear-gradient(to right, ${colors[0]} 0%, ${colors[colors.length - 1]} 100%)`,
         borderRadius: '4px',
         left: `${getPercent(localValues[0])}%`,
-        width: `${getPercent(localValues[2]) - getPercent(localValues[0])}%`,
+        width: `${getPercent(localValues[localValues.length - 1]) - getPercent(localValues[0])}%`,
         opacity: 0.6
       }}></div>
 
@@ -52,7 +52,7 @@ const HoneyMultiSlider = ({ values, min, max, onChange, colors }) => {
                  background:'rgba(255,255,255,0.9)', padding:'2px 6px', borderRadius:'6px',
                  boxShadow: '0 2px 4px rgba(0,0,0,0.1)', whiteSpace: 'nowrap'
              }}>
-                 {i === 0 ? 'MIN' : i === 1 ? 'IDEAL' : 'MAX'}
+                 {i === 0 ? 'MIN' : 'MAX'}
              </div>
           </div>
           

@@ -13,6 +13,12 @@ body { margin: 0; }
 .hex-hover:hover { transform: translateY(-5px); }
 .menu-btn-hover:hover { transform: rotate(90deg); transition: 0.3s; }
 
+/* Animazione Spinner */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 /* --- CSS SLIDER MULTIPLO FIXATO --- */
 .multi-range-slider {
     position: absolute;
